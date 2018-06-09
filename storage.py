@@ -36,6 +36,5 @@ elif a in data:
 else:
     with open(storage_path, 'w') as f:
         data[a]=b
-        json.dump(data, f)
-   #     print('d', data)
+        json.dump(data, f)#    print('d', data)
 
