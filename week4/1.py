@@ -24,27 +24,34 @@ class File:
         self.linkstart = link
 
         name = link.split('/')[-1]
+       # print(len(link.split('/')))
 
-        s_path = os.path.join(tempfile.gettempdir(), name)
-        try:
-            f = open(s_path)
-        except IOError as e:
-            with open(s_path, 'w') as f:
-                chars = string.ascii_uppercase + string.digits
-                f.write(''.join(random.choice(chars) for _ in range(5)) + '\n' ''.join(random.choice(chars) for _ in range(4)) + '\n' ''.join(random.choice(chars) for _ in range(3)) + '\n')
-                f.close()
+        if len(link.split('/')) == 1:
+            link = name
+            self.link = link
         else:
-            pass
+            s_path = os.path.join(tempfile.gettempdir(), name)
+            try:
+              f = open(s_path)
+            except IOError as e:
+                with open(s_path, 'w') as f:
+                    chars = string.ascii_uppercase + string.digits
+                    f.write(''.join(random.choice(chars) for _ in range(5)) + '\n' ''.join(random.choice(chars) for _ in range(4)) + '\n' ''.join(random.choice(chars) for _ in range(3)) + '\n')
+                    f.close()
+            else:
+                pass
 
-        '''
-        #код на случай какой-то другой обработки пути к файлу, но он тоже не для всех вариантов работает
+            '''
+            #код на случай какой-то другой обработки пути к файлу, но он тоже не для всех вариантов работает
         
-        script_dir = os.path.dirname(__file__)  # <-- absolute dir the script is in
-        rel_path = "temp/first.txt"
-        link = os.path.join(script_dir, rel_path)
+            script_dir = os.path.dirname(__file__)  # <-- absolute dir the script is in
+            rel_path = "temp/first.txt"
+            link = os.path.join(script_dir, rel_path)
 '''
-        self.link = s_path
-        link = s_path
+            self.link = s_path
+            link = s_path
+
+
         with open(link) as f:
             self.text_inside = f.read()
         with open(link) as f:
@@ -81,7 +88,7 @@ class File:
 
 
 
-a = File('tmp/file.txt')
+a = File('example.txt')
 print(a.text_inside)
 for line in File('/tmp/file.txt'):
     print(line)
